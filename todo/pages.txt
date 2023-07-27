@@ -1,0 +1,38 @@
+“Employees” Page - <----Done
+This page has:
+- A Table with all Employees data. Each row presents : his FullName, Department, and a list of All his shifts (Date & Time) .
+<--- done in employees aggr
+“Edit Employee” Page
+
+“Edit Employee” Page This page has:
+- A Form with the selected employee data to be edited.
+- An “Update” button to save the update data in the server
+- A “Delete” button to delete all employee’s data (and his related data, like shifts) from the server.
+- A table with all his Shifts
+- An option to register him to an EXISTING shift
+<------ get employee by id and his shifts and all shifts so can be registered. triple join shift and shiftemp tables
+should return json with{employee data:"emp data, emp_shifts",existing_shifts}
+
+“Department” Page
+This page has:
+- A Table with all Departments data. Each row presents : Department name, Department manager name, and a list of Employees names work in that department.
+o Each Employee Full name is a link. A click on it will redirect to “Edit Employee” Page with all his personal data in a form to be edited.
+o Each Department name is a link. A click on it will redirect to “Edit Department” Page with all the department data in a form to be edited.
+- A button called “New Department”. A click on it will Redirect to “Add Department” Page
+<------ get all departments ("/department") join on employees for manager name, join on employees for employee names and id's list
+
+“Edit Department” Page
+This page has:
+- A Form with The selected department data to be edited.
+- An “Update” button to save the update data in the server
+- A “Delete” button to delete all departments data from the server (including all department’s employees data)
+- A Dropdown with all employees that NOT belong to that department, and a “Add” button.
+ A click on “Add” button will allocate the selected employee to that department (instead of his previous one)
+ <-----------get department by id: "/department/{id}" , get department id and join on employee table that employees
+ do not belong to that department
+
+ “Shifts” Page
+This page has an option for creating new shifts, and change existing shifts, 
+and allocate employees to a given shift. Shifts Can NOT be deleted !!
+get all shifts "/shift" normal ,and edit shift /shift/{id} <--- get shift by id, and triple join on employee
+table, get all employees not working on that table so they can be allocated

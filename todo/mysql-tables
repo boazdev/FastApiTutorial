@@ -1,0 +1,12 @@
+CREATE TABLE employee (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    start_work_year INT NOT NULL,
+    department_id CHAR(36)
+);
+
+INSERT INTO employee (first_name, last_name, start_work_year) VALUES
+    ('John', 'Doe', 2018),
+    ('Jane', 'Smith', 2019),
+    ('Michael', 'Johnson', 2020);
