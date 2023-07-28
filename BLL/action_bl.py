@@ -21,7 +21,7 @@ class ActionBL():
         
         
         actions_allowed= actions_data["max_actions"] - actions_data["action_count"] -1
-        print("actions allowed:",actions_allowed)
+        """ print("actions allowed:",actions_allowed) """
         if(actions_allowed==0):
             return None
         curr_date = datetime.now().strftime("%Y-%m-%d")

@@ -50,7 +50,7 @@ def check_actions(
 ):
     user_id = payload.get("sub")
     action_path = request.url.path
-    print(f"check actions,  user id: {user_id}, action path: {action_path}")
+    """ print(f"check actions,  user id: {user_id}, action path: {action_path}") """
     is_action_path = True
     if is_action_path:
         action_bl = ActionBL()

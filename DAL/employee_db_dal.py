@@ -84,6 +84,7 @@ class EmployeeDBDAL:
     def delete_employee(self, db:Session, employee_id:str) -> dict | None: 
         db_employee = db.query(Employee).filter(Employee.id == employee_id).first()
         emp_name = db_employee.first_name +" " + db_employee.last_name
+        
         print(emp_name)
         if db_employee:
             db.delete(db_employee)
