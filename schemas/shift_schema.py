@@ -13,6 +13,9 @@ class ShiftUpdate(ShiftBase):
 
 class Shift(ShiftBase):
     id: str
-
+    """ model_config = {
+        "from_attributes": True,  # Set orm_mode to True for SQLAlchemy support
+    } """
     class Config:
         orm_mode = True
+        """ from_attributes = True """

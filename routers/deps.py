@@ -10,7 +10,7 @@ from sql_app.database import SessionLocal
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
-
+settings = config.get_settings()
 def get_db() -> Generator:
     try:
         db = SessionLocal()
@@ -21,14 +21,14 @@ def get_db() -> Generator:
 def create_access_token(data: dict):
     to_encode = data.copy()
     
-    encoded_jwt = jwt.encode(data, key=config.get_settings().jwt_key, algorithm=config.get_settings().jwt_algorithm)
+    encoded_jwt = jwt.encode(data, key=settings.jwt_key, algorithm=settings.jwt_algorithm)
     return encoded_jwt
 
 def verify_token(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     payload=None
     try:
         payload = jwt.decode(
-            token, key=config.get_settings().jwt_key, algorithms=[config.get_settings().jwt_algorithm],
+            token, key=settings.jwt_key, algorithms=[settings.jwt_algorithm],
         )
         token_data = payload
     except (JWTError, ValidationError):

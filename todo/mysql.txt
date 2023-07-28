@@ -31,3 +31,5 @@ docker run -d \
 
 ALTER TABLE user
 CHANGE COLUMN ID id CHAR(36) NOT NULL DEFAULT (UUID());
+
+username:root, password:secretpass
