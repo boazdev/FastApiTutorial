@@ -45,3 +45,10 @@ def update_shift(shift_id: str, shift: ShiftUpdate, db: Session = Depends(get_db
     if updated_shift is None:
         raise HTTPException(status_code=404, detail="Shift not found")
     return updated_shift
+
+@shift_router.delete("/{shift_id}", response_model=dict , tags=["Testing"])
+def delete_shift(shift_id: str,  db: Session = Depends(get_db)):
+    deleted_shift = shift_db_dal.delete_shift(db, shift_id=shift_id)
+    if deleted_shift is None:
+        raise HTTPException(status_code=404, detail="Shift not found")
+    return deleted_shift

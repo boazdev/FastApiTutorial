@@ -29,4 +29,12 @@ class ShiftDBDAL:
             db.commit()
             db.refresh(db_shift)
         return db_shift
+    def delete_shift(self, db:Session, shift_id:str) -> dict | None: 
+        db_shift = db.query(Shift).filter(Shift.id == shift_id).first()
+        if db_shift:
+            db.delete(db_shift)
+            db.commit()
+            return {"message": f"Shift deleted"}
+        else:
+            return None
 shift_db_dal = ShiftDBDAL()

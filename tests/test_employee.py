@@ -1,29 +1,22 @@
 from fastapi.testclient import TestClient
-from pydantic import parse_obj_as
+
 from pydantic import TypeAdapter
 from schemas.employee_schema import Employee
-from main import app
+
 import pytest
 
 class TestEmployee:
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def setup(self,client: TestClient, get_token_header:dict):
         # Perform setup actions here (e.g., creating resources, setting up connections)
         print("\nSetup: Before each test function")
-        self.client = TestClient(app)
-        obj={"username": "test_user", "password": "test123"}
-        response = self.client.post("/auth/login", data=obj)
-        token_data = response.json()
-        self.token_header = {"Authorization": "Bearer " + token_data["access_token"]}
+        self.client = client
+        self.token_header = get_token_header
         self.emp_validator = TypeAdapter(Employee)
         self.emp_id =""
         #yield
-
         # Teardown method: Runs after each test function using this fixture
-        # Perform teardown actions here (e.g., releasing resources, closing connections)
-        """ print("Teardown: After each test function")
-        print("post emp id:", self.emp_id) """
-    # Test functions using the fixture
+
     @pytest.fixture()
     def dummy_employee(self,setup):
         new_emp_data = {
