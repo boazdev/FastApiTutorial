@@ -12,7 +12,9 @@ class UserLogin(BaseModel):
 class UserCreate(UserBase):
     password: str
 
-
+class UserUpdate(BaseModel):
+    full_name : str | None = None
+    password : str | None = None
 class User(UserBase):
     id: str
     

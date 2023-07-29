@@ -64,30 +64,7 @@ class UserDBDAL:
         }
 
         return user_actions
-    
-    """ def get_user_actions2(self, db:Session, user_id:str)->dict: 
-        stmt = (
-        select(User.id,User.num_of_actions, func.count(Action.id).label("action_count"))
-        .select_from(User)
-        .outerjoin(Action, User.id == Action.user_id)
-        .where(User.id == user_id)
-        .where(Action.date == func.current_date())
-        )
 
-        result = db.execute(stmt).fetchall()
-
-        if not result:
-            return {
-                "max_actions": None,
-                "action_count": 0,
-            }
-
-        user_actions = {
-            "max_actions": result[0][1],
-            "action_count": result[0][2],
-        }
-
-        return user_actions """
 
     def create_user(self, db: Session, user: UserCreate):
         password = user.password
@@ -96,4 +73,26 @@ class UserDBDAL:
         db.commit()
         db.refresh(db_user)
         return db_user
+    
+    def update_user(self, db: Session, user_id: str, user: UserUpdate):
+        db_user = db.query(User).filter(User.id == user_id).first()
+        if db_user:
+            for key, value in user.model_dump(exclude_unset=True).items():
+                setattr(db_user, key, value)
+           
+            db.add(db_user)
+            db.commit()
+            db.refresh(db_user)
+        return db_user
+    
+    def delete_user(self, db:Session, user_id:str) -> dict | None: 
+        db_user = db.query(User).filter(User.id == user_id).first()
+
+        if db_user:
+            db.delete(db_user)
+            db.commit()
+            return {"message": f"User  deleted"}
+        else:
+            return None
+        
 user_db_dal = UserDBDAL()
