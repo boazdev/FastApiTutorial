@@ -6,6 +6,13 @@ from typing import Generator,Dict
 #from app.db.session import SessionLocal
 from main import app
 
+create_user_data ={
+                            "username": "dummy_user456",
+                            "password": "dummy456",
+                            "full_name": "eric cartman",
+                            "num_of_actions":34
+                            }
+
 @pytest.fixture(scope="module")
 def client() -> Generator:
     with TestClient(app) as c:

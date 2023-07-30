@@ -15,6 +15,7 @@ class UserCreate(UserBase):
 class UserUpdate(BaseModel):
     full_name : str | None = None
     password : str | None = None
+    num_of_actions: int | None = None
 class User(UserBase):
     id: str
     
